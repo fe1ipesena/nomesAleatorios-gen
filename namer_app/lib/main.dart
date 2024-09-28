@@ -43,19 +43,23 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Text('Uma ideia de nome:'),
-          BigCard(pair: pair),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, //alinha essa coluna com o centro da tela (verticalmente)
+          children: [
+            BigCard(pair: pair),
 
-          //adicionando botao
-          ElevatedButton(onPressed: (){
-              appState.getNext(); //já pede o próximo
-          }, 
-          child: Text("Próximo"), 
-          ),
-
-        ],
+            SizedBox(height: 10,),
+              
+            //adicionando botao
+            ElevatedButton(onPressed: (){
+                appState.getNext(); //já pede o próximo
+            }, 
+            child: Text("Próximo"), 
+            ),
+        
+          ],
+        ),
       ),
     );
   }
@@ -73,11 +77,22 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context); //o app já pega a cor "tema" do esquema e utiliza.
 
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
+      
+    );
+
     return Card(
       color: theme.colorScheme.primary,
+      elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text(pair.asPascalCase),
+
+        child: Text(
+          pair.asPascalCase,
+          style: style,
+          semanticsLabel: "${pair.first} ${pair.second}",   
+        ),
       ),
     );
   }
