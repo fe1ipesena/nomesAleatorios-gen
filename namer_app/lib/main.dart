@@ -71,6 +71,14 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(pair.asPascalCase);
+    final theme = Theme.of(context); //o app já pega a cor "tema" do esquema e utiliza.
+
+    return Card(
+      color: theme.colorScheme.primary,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Text(pair.asPascalCase),
+      ),
+    );
   }
 }
