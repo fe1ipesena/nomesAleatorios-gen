@@ -68,7 +68,7 @@ switch (selectedIndex) {
     page = GeneratorPage();
     break;
   case 1:
-    page = Placeholder();
+    page = FavoritesPage();
     break;
   default:
     throw UnimplementedError('no widget for $selectedIndex');
@@ -156,6 +156,39 @@ class GeneratorPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class FavoritesPage extends ListView {
+
+  @override
+  Widget build(BuildContext context){
+
+    var AppState = context.watch<MyAppState>();
+
+        if(AppState.favorites.isEmpty){
+          return Center(
+            child: Text("A lista de nomes está vazia!"),
+          );
+
+  }
+
+  return ListView(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(20),
+        child: Text("Você tem "
+        "${AppState.favorites.length} nomes salvos:"),
+        ),
+        for (var pair in AppState.favorites)
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text(pair.asPascalCase),
+          )
+    ],
+  );
+
+}
+
 }
 
 class BigCard extends StatelessWidget {
